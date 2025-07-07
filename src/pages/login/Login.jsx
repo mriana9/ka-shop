@@ -21,7 +21,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosAuth from "../../api/axiosAuthInstance";
 import { Slide, toast } from "react-toastify";
 import CustomButton from "../../shared/CustomButton";
@@ -35,7 +35,7 @@ export default function Login() {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const handleTogglePassword = () => setShowPassword((prev) => !prev);
   const navigate = useNavigate();
 
@@ -44,13 +44,20 @@ export default function Login() {
       return axiosAuth.post(`${import.meta.env.VITE_BURL}/Account/Login`, data);
     },
     onSuccess: (res, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["userLogin"] });
+      const userData = {
+        token: res.data.token,
+        email: variables.email,
+      };
+
+      //queryClient.invalidateQueries({ queryKey: ["userLogin"] });
+      queryClient.setQueryData(["userLogin"], userData);
+
       toast.success("Login Successfully", {
         transition: Slide,
         theme: "light",
       });
-      localStorage.setItem("userToken", res.data.token);
-      localStorage.setItem("userEmail", variables.email);
+      localStorage.setItem("userToken", userData.token);
+      localStorage.setItem("userEmail", userData.email);
       navigate("/");
     },
     onError: (error) => {

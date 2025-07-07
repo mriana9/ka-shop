@@ -25,7 +25,7 @@ export default function BestSellers() {
     <Container sx={{ py: 3 }} className="best-sellers">
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography variant="h3">Best Sellers</Typography>
-        <Link to="/product" style={{ color: "#27c2c2" }}>
+        <Link to="/products" style={{ color: "#27c2c2" }}>
           See all
         </Link>
       </Box>

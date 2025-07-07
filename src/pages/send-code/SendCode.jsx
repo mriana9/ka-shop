@@ -41,8 +41,8 @@ export default function SendCode() {
 
   const userSendCode = useMutation({
     mutationFn: (data) => {
-      return axiosAuth.post(
-        `${import.meta.env.VITE_BURL}/Account/ForgotPassword`,
+      return axiosAuth.patch(
+        `${import.meta.env.VITE_BURL}/Account/SendCode`,
         data
       );
     },

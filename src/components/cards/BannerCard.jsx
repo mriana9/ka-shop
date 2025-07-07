@@ -29,7 +29,7 @@ export default function BannerCard({
         <Typography variant="body2" color="text.primary" mb={2}>
           {description}
         </Typography>
-        <Link to="/product">
+        <Link to="/products">
           <Button
             variant="contained"
             sx={{

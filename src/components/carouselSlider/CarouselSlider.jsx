@@ -124,7 +124,7 @@ const CarouselSlider = () => {
                         {slide.description}
                       </Typography>
 
-                      <Link to="/product">
+                      <Link to="/products">
                         <Button
                           variant="outlined"
                           className="btn light-btn"
