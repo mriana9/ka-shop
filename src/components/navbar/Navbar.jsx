@@ -14,6 +14,7 @@ import {
   Menu,
   MenuItem,
   ListItemText,
+  Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -24,6 +25,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import axiosAuth from "../../api/axiosAuthInstance";
 
 const pages = [
   { name: "Home", path: "/" },
@@ -77,6 +79,17 @@ export default function Navbar() {
 
     navigate("/");
   };
+
+  const fetchCartItem = async () => {
+    const res = await axiosAuth.get(`${import.meta.env.VITE_BURL}/Carts`);
+    return res.data.cartResponse;
+  };
+
+  const { data: cartItems = [] } = useQuery({
+    queryKey: ["cartItems"],
+    queryFn: fetchCartItem,
+    staleTime: 0,
+  });
 
   return (
     <AppBar
@@ -213,22 +226,29 @@ export default function Navbar() {
               </IconButton>
 
               {/* Cart icon */}
-              <IconButton
-                component={Link}
-                to="/cart"
+              <Badge
+                badgeContent={cartItems.length}
+                color="error"
                 sx={{
-                  backgroundColor: "#fff",
-                  borderRadius: 1,
-                  mx: 1,
-                  color: "#312d5f",
                   display: {
                     xs: "none",
                     md: "block",
                   },
                 }}
               >
-                <ShoppingCartIcon />
-              </IconButton>
+                <IconButton
+                  component={Link}
+                  to="/cart"
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: 1,
+                    mx: 1,
+                    color: "#312d5f",
+                  }}
+                >
+                  <ShoppingCartIcon />
+                </IconButton>
+              </Badge>
             </>
           )}
 
@@ -370,22 +390,29 @@ export default function Navbar() {
               </IconButton>
 
               {/* Cart icon */}
-              <IconButton
-                component={Link}
-                to="/cart"
+              <Badge
+                badgeContent={cartItems.length}
+                color="error"
                 sx={{
-                  backgroundColor: "#fff",
-                  borderRadius: 1,
-                  mx: 1,
-                  color: "#312d5f",
                   display: {
                     xs: "inline",
                     md: "none",
                   },
                 }}
               >
-                <ShoppingCartIcon />
-              </IconButton>
+                <IconButton
+                  component={Link}
+                  to="/cart"
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: 1,
+                    mx: 1,
+                    color: "#312d5f",
+                  }}
+                >
+                  <ShoppingCartIcon />
+                </IconButton>
+              </Badge>
             </>
           )}
         </List>

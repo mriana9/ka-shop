@@ -8,8 +8,8 @@ import {
   Button,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
+import AddToCartButton from "../buttons/AddToCartButton";
 
 export default function ProductCard({ product }) {
   return (
@@ -75,20 +75,7 @@ export default function ProductCard({ product }) {
             transition: "all 0.3s ease",
           }}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              backgroundColor: "#27c2c2",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "#1daaaa",
-              },
-            }}
-            startIcon={<ShoppingCartIcon />}
-          >
-            Add to Cart
-          </Button>
+          <AddToCartButton productId={product.id} />
         </Box>
       </Box>
 
