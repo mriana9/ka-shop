@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import logoImage from "../../assets/dark-logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   Drawer,
@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -35,6 +35,8 @@ const pages = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const queryClient = useQueryClient();
+
   const { data: userData } = useQuery({
     queryKey: ["userLogin"],
     queryFn: () => {
@@ -50,6 +52,7 @@ export default function Navbar() {
   });
 
   const isLoggedIn = !!userData?.token;
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -65,6 +68,16 @@ export default function Navbar() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userEmail");
+    handleMenuClose();
+    queryClient.removeQueries({ queryKey: ["userLogin"] });
+
+    navigate("/");
+  };
+
   return (
     <AppBar
       className="navbar"
@@ -176,7 +189,7 @@ export default function Navbar() {
                   {" "}
                   <SettingsIcon sx={{ color: "#4fc4ca" }} /> Settings
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
+                <MenuItem onClick={handleLogout}>
                   {" "}
                   <LogoutIcon sx={{ color: "#4fc4ca" }} /> Logout
                 </MenuItem>
@@ -333,7 +346,7 @@ export default function Navbar() {
                   {" "}
                   <SettingsIcon sx={{ color: "#4fc4ca" }} /> Settings
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
+                <MenuItem onClick={handleLogout}>
                   {" "}
                   <LogoutIcon sx={{ color: "#4fc4ca" }} /> Logout
                 </MenuItem>
