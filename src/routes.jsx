@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import {
+  Cart,
   ForgotPassword,
   Home,
   Login,
@@ -9,6 +10,7 @@ import {
   Register,
   SendCode,
 } from "./pages";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const routes = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const routes = createBrowserRouter([
       {
         path: "/send-code",
         element: <SendCode />,
+      },
+      {
+        path: "/cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/products",
