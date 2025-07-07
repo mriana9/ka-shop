@@ -66,7 +66,6 @@ export default function CartPage() {
           </CardContent>
         </Grid>
       </Grid>
-
       <Divider />
       <BestSellers title={"Recommended for You"} />
     </Container>

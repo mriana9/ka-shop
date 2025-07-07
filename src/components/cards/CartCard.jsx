@@ -5,7 +5,21 @@ import cardImage from "../../assets/cartimg.png";
 
 export default function CartCard() {
   return (
-    <Box display="flex" alignItems="center" gap={2} mb={2}>
+    <Box
+      display="flex"
+      sx={{
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+      }}
+      gap={2}
+      mb={2}
+    >
       <Box
         component="img"
         src={cardImage}
@@ -14,7 +28,7 @@ export default function CartCard() {
           height: { xs: 100, md: 120 },
         }}
       />
-      <Box flexGrow={1}>
+      <Box>
         <Typography variant="h6">MacBook M1</Typography>
         <Typography variant="body2" color="text.secondary">
           Product Description Product Description Product Description
@@ -26,7 +40,14 @@ export default function CartCard() {
           <Typography fontWeight="bold">1299,99</Typography>
         </Box>
       </Box>
-      <Box sx={{ textAlign: "end" }}>
+      <Box
+        sx={{
+          textAlign: {
+            xs: "start",
+            md: "end",
+          },
+        }}
+      >
         <IconButton sx={{ color: "#DC1818" }}>
           <DeleteIcon />
         </IconButton>
