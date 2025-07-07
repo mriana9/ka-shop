@@ -1,7 +1,74 @@
-import React from 'react'
+import {
+  Box,
+  Typography,
+  Button,
+  Divider,
+  CardContent,
+  Grid,
+  Container,
+} from "@mui/material";
+import CartCard from "../../components/cards/CartCard";
+import BestSellers from "../../components/bestSellers/BestSellers";
 
-export default function Cart() {
+export default function CartPage() {
   return (
-    <div>Cart</div>
-  )
+    <Container>
+      <Grid container spacing={2} py={5}>
+        {/* Cart Items */}
+        <Grid size={{ xs: 12, sm: 12, md: 8 }}>
+          <Typography variant="h5" mb={2}>
+            Cart
+          </Typography>
+          <CartCard />
+          <CartCard />
+        </Grid>
+
+        {/* Order Summary */}
+        <Grid
+          size={{ xs: 12, sm: 12, md: 4 }}
+          sx={{ backgroundColor: "#F2F2F2" }}
+        >
+          <CardContent>
+            <Typography variant="h6" mb={2} fontWeight="bold">
+              Order Summary
+            </Typography>
+            <Box display="flex" justifyContent="space-between">
+              <Typography>Subtotal</Typography>
+              <Typography>1499,99</Typography>
+            </Box>
+            <Box display="flex" justifyContent="space-between">
+              <Typography>Delivery Charges</Typography>
+              <Typography>20,00</Typography>
+            </Box>
+            <Box display="flex" justifyContent="space-between">
+              <Typography>V.A.T</Typography>
+              <Typography>10,00</Typography>
+            </Box>
+            <Box display="flex" justifyContent="space-between">
+              <Typography>Discount</Typography>
+              <Typography color="error">-100,00</Typography>
+            </Box>
+
+            <Divider sx={{ my: 2 }} />
+
+            <Box display="flex" justifyContent="space-between" mb={2}>
+              <Typography fontWeight="bold">Total</Typography>
+              <Typography fontWeight="bold">1479,99$</Typography>
+            </Box>
+
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{ backgroundColor: "#3ed7e9" }}
+            >
+              Proceed to checkout
+            </Button>
+          </CardContent>
+        </Grid>
+      </Grid>
+
+      <Divider />
+      <BestSellers title={"Recommended for You"} />
+    </Container>
+  );
 }

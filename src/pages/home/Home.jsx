@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <CarouselSlider />
       <Categories />
-      <BestSellers />
+      <BestSellers title={"Best Sellers"} />
       <Ads />
       <Banner />
       <Subscribe />

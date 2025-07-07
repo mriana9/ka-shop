@@ -20,6 +20,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import BestSellers from "../../components/bestSellers/BestSellers";
+import ProductDetailsSkeleton from "../../components/loading/ProductDetailsSkeleton";
 
 export default function ProductDetails() {
   const thumbnails = [
@@ -49,7 +50,7 @@ export default function ProductDetails() {
     enabled: !!id,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <ProductDetailsSkeleton />;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
@@ -137,7 +138,7 @@ export default function ProductDetails() {
               </Typography>
               <Box display="flex" alignItems="center" gap={1}>
                 <Rating value={3.4} precision={0.1} readOnly />
-                <Typography variant="body2"> {product.rate}</Typography>
+                <Typography variant="body2">({product.rate})</Typography>
               </Box>
 
               <Typography fontWeight="bold" mt={3}>
@@ -219,7 +220,7 @@ export default function ProductDetails() {
           </Grid>
         </Grid>
       </Box>
-      <BestSellers />
+      <BestSellers title={"Recommended for You"} />
     </>
   );
 }

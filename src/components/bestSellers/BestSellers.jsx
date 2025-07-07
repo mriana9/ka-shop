@@ -7,7 +7,7 @@ import "swiper/css";
 import ProductCard from "../cards/ProductCard";
 import ProductCardSkeleton from "../loading/ProductCardSkeleton";
 
-export default function BestSellers() {
+export default function BestSellers({ title }) {
   const fetchProducts = async () => {
     const { data } = await axios.get(`${import.meta.env.VITE_BURL}/products`);
     return data.data;
@@ -24,7 +24,7 @@ export default function BestSellers() {
   return (
     <Container sx={{ py: 3 }} className="best-sellers">
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-        <Typography variant="h3">Best Sellers</Typography>
+        <Typography variant="h3">{title}</Typography>
         <Link to="/products" style={{ color: "#27c2c2" }}>
           See all
         </Link>
