@@ -9,8 +9,26 @@ import {
 } from "@mui/material";
 import CartCard from "../../components/cards/CartCard";
 import BestSellers from "../../components/bestSellers/BestSellers";
+import axiosAuth from "../../api/axiosAuthInstance";
+import { useQuery } from "@tanstack/react-query";
 
 export default function CartPage() {
+  const fetchCartItem = async () => {
+    const res = await axiosAuth.get("/Carts");
+    return res.data.cartResponse;
+  };
+
+  const {
+    data: cartItems,
+    isError,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["cartItems"],
+    queryFn: fetchCartItem,
+    staleTime: 0,
+  });
+
   return (
     <Container>
       <Grid container spacing={2} py={5}>
@@ -19,8 +37,15 @@ export default function CartPage() {
           <Typography variant="h5" mb={2}>
             Cart
           </Typography>
-          <CartCard />
-          <CartCard />
+          {isLoading ? (
+            <Typography>Loading...</Typography>
+          ) : isError ? (
+            <Typography color="error">{error.message}</Typography>
+          ) : cartItems?.length === 0 ? (
+            <Typography>No items in cart.</Typography>
+          ) : (
+            cartItems.map((item) => <CartCard key={item.id} item={item} />)
+          )}
         </Grid>
 
         {/* Order Summary */}
