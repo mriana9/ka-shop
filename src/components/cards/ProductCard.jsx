@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   return (
@@ -93,8 +94,21 @@ export default function ProductCard({ product }) {
 
       {/* Product Info */}
       <Box sx={{ p: 2 }}>
-        <Typography fontWeight={600}>{product.name}</Typography>
-        <Typography variant="body2" color="text.secondary" height="40px" mt={0.5}>
+        <Link
+          to={`/product/${product.id}`}
+          fontWeight={600}
+          sx={{
+            color: "#312d5f",
+          }}
+        >
+          {product.name}
+        </Link>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          height="40px"
+          mt={0.5}
+        >
           {product.description}
         </Typography>
         <Typography mt={1} fontWeight={600} color="#001e6c">

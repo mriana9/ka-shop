@@ -4,6 +4,7 @@ import {
   ForgotPassword,
   Home,
   Login,
+  ProductDetails,
   Products,
   Register,
   SendCode,
@@ -38,6 +39,14 @@ const routes = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
+      },
+      {
+        path: "/products",
+        element: <Products />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductDetails />,
       },
     ],
   },
