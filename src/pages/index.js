@@ -6,3 +6,4 @@ export { default as SendCode } from "./send-code/SendCode";
 export { default as Products } from "./products/Products";
 export { default as ProductDetails } from "./products/ProductDetails";
 export { default as Cart } from "./cart/Cart";
+export { default as Checkout } from "./checkout/Checkout";

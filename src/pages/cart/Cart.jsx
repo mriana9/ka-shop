@@ -26,6 +26,7 @@ export default function CartPage() {
       `${import.meta.env.VITE_BURL}/Carts/increaseCount/${cartId}`
     );
     queryClient.invalidateQueries(["cartItems"]);
+    queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
   };
 
   const decreaseCart = async (cartId) => {
@@ -33,6 +34,7 @@ export default function CartPage() {
       `${import.meta.env.VITE_BURL}/Carts/decreaseCount/${cartId}`
     );
     queryClient.invalidateQueries(["cartItems"]);
+    queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
   };
 
   const fetchCartItem = async () => {
@@ -48,6 +50,17 @@ export default function CartPage() {
   } = useQuery({
     queryKey: ["cartItems"],
     queryFn: fetchCartItem,
+    staleTime: 0,
+  });
+
+  const fetchTotalPrice = async () => {
+    const res = await axiosAuth.get("/Carts");
+    return res.data.totalPrice;
+  };
+
+  const { data: totalPrice } = useQuery({
+    queryKey: ["totalPrice"],
+    queryFn: fetchTotalPrice,
     staleTime: 0,
   });
 
@@ -148,7 +161,7 @@ export default function CartPage() {
 
               <Box display="flex" justifyContent="space-between" mb={2}>
                 <Typography fontWeight="bold">Total</Typography>
-                <Typography fontWeight="bold">1479,99$</Typography>
+                <Typography fontWeight="bold">{totalPrice}$</Typography>
               </Box>
 
               <Button

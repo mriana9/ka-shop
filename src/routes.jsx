@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import {
   Cart,
+  Checkout,
   ForgotPassword,
   Home,
   Login,
@@ -47,8 +48,8 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/products",
-        element: <Products />,
+        path: "/checkout",
+        element: <Checkout />,
       },
       {
         path: "/products",

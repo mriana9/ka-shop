@@ -23,28 +23,17 @@ export default function ClearCartButton() {
     onSuccess: () => {
       toast.success("Clear All Successfully", {
         position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "light",
         transition: Slide,
       });
 
       queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+      queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
     },
 
     onError: () => {
       toast.error("Please Check Your Network and Try Again!", {
         position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "colored",
         transition: Slide,
       });

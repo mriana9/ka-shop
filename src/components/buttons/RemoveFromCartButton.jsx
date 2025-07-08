@@ -14,6 +14,7 @@ export default function RemoveFromCartButton({ cartId }) {
     onSuccess: () => {
       toast.success("Removed from Cart Successfully");
       queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+      queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
     },
 
     onError: (error) => {

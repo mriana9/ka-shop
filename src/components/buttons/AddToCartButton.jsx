@@ -13,6 +13,7 @@ export default function AddToCartButton({ productId }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cartItems"] });
+      queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
 
       toast.success("Add to Cart Successfully", {
         transition: Slide,
