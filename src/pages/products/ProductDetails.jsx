@@ -17,10 +17,12 @@ import thumProduct3 from "../../assets/thum-prodect3.png";
 import thumProduct4 from "../../assets/thum-prodect4.png";
 import { useState } from "react";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import BestSellers from "../../components/bestSellers/BestSellers";
 import ProductDetailsSkeleton from "../../components/loading/ProductDetailsSkeleton";
+import QuantityButton from "../../components/buttons/QuantityButton";
+import axiosAuth from "../../api/axiosAuthInstance";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function ProductDetails() {
   const thumbnails = [
@@ -30,6 +32,7 @@ export default function ProductDetails() {
     thumProduct4,
   ];
   const { id } = useParams();
+  const queryClient = useQueryClient();
 
   const [mainImage, setMainImage] = useState(mainImageDefault || thumbnails[0]);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -50,8 +53,35 @@ export default function ProductDetails() {
     enabled: !!id,
   });
 
+  const fetchCartItem = async () => {
+    const res = await axiosAuth.get("/Carts");
+    return res.data.cartResponse;
+  };
+
+  const { data: cartItems } = useQuery({
+    queryKey: ["cartItems"],
+    queryFn: fetchCartItem,
+  });
+
   if (isLoading) return <ProductDetailsSkeleton />;
   if (isError) return <p>Error: {error.message}</p>;
+
+  const cartItem = cartItems?.find((item) => item.id === product.id);
+  const cartCount = cartItem?.count || 1;
+
+  const increaseCart = async (cartId) => {
+    await axiosAuth.patch(
+      `${import.meta.env.VITE_BURL}/Carts/increaseCount/${cartId}`
+    );
+    queryClient.invalidateQueries(["cartItems"]);
+  };
+
+  const decreaseCart = async (cartId) => {
+    await axiosAuth.patch(
+      `${import.meta.env.VITE_BURL}/Carts/decreaseCount/${cartId}`
+    );
+    queryClient.invalidateQueries(["cartItems"]);
+  };
 
   return (
     <>
@@ -169,39 +199,11 @@ export default function ProductDetails() {
                 sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}
               >
                 {/* Quantity Control Box */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    border: "1px solid #ccc",
-                    borderRadius: 1,
-                    overflow: "hidden",
-                  }}
-                >
-                  <Button
-                    variant="text"
-                    sx={{ minWidth: 40, color: "#312d5f" }}
-                  >
-                    -
-                  </Button>
-                  <Typography
-                    sx={{
-                      px: 2,
-                      borderLeft: "1px solid #ccc",
-                      borderRight: "1px solid #ccc",
-                      minWidth: 32,
-                      textAlign: "center",
-                    }}
-                  >
-                    1
-                  </Typography>
-                  <Button
-                    variant="text"
-                    sx={{ minWidth: 40, color: "#312d5f" }}
-                  >
-                    +
-                  </Button>
-                </Box>
+                <QuantityButton
+                  count={cartCount}
+                  onIncrease={() => increaseCart(product.id)}
+                  onDecrease={() => decreaseCart(product.id)}
+                />
 
                 {/* Buy Button */}
                 <Button

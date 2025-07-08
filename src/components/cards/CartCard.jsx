@@ -2,8 +2,10 @@ import { Box, Button, IconButton, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RemoveFromCartButton from "../buttons/RemoveFromCartButton";
 import cartImage from "../../assets/cartimg.png";
+import { Link } from "react-router-dom";
+import QuantityButton from "../buttons/QuantityButton";
 
-export default function CartCard({ item }) {
+export default function CartCard({ item, onIncrease, onDecrease }) {
   return (
     <Box
       display="flex"
@@ -34,7 +36,11 @@ export default function CartCard({ item }) {
 
       {/* Product Info */}
       <Box flex={1}>
-        <Typography variant="h6">{item?.name}</Typography>
+        <Typography variant="h6">
+          <Link to={`/product/${item?.id}`} fontWeight={600}>
+            {item.name}
+          </Link>
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           {item?.description}
         </Typography>
@@ -49,39 +55,23 @@ export default function CartCard({ item }) {
       </Box>
 
       {/* Actions */}
-      <Box>
+      <Box
+        sx={{
+          textAlign: {
+            xs: "start",
+            md: "end",
+          },
+        }}
+      >
         <RemoveFromCartButton cartId={item.id} />
         <IconButton sx={{ color: "#4fc4ca" }}>
           <FavoriteBorderIcon />
         </IconButton>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            border: "1px solid #ccc",
-            borderRadius: 1,
-            overflow: "hidden",
-            mt: 1,
-          }}
-        >
-          <Button variant="text" sx={{ minWidth: 40, color: "#312d5f" }}>
-            -
-          </Button>
-          <Typography
-            sx={{
-              px: 2,
-              borderLeft: "1px solid #ccc",
-              borderRight: "1px solid #ccc",
-              minWidth: 32,
-              textAlign: "center",
-            }}
-          >
-            {item.count}
-          </Typography>
-          <Button variant="text" sx={{ minWidth: 40, color: "#312d5f" }}>
-            +
-          </Button>
-        </Box>
+        <QuantityButton
+          count={item.count}
+          onIncrease={onIncrease}
+          onDecrease={onDecrease}
+        />
       </Box>
     </Box>
   );

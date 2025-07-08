@@ -10,9 +10,25 @@ import {
 import CartCard from "../../components/cards/CartCard";
 import BestSellers from "../../components/bestSellers/BestSellers";
 import axiosAuth from "../../api/axiosAuthInstance";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function CartPage() {
+  const queryClient = useQueryClient();
+
+  const increaseCart = async (cartId) => {
+    await axiosAuth.patch(
+      `${import.meta.env.VITE_BURL}/Carts/increaseCount/${cartId}`
+    );
+    queryClient.invalidateQueries(["cartItems"]);
+  };
+
+  const decreaseCart = async (cartId) => {
+    await axiosAuth.patch(
+      `${import.meta.env.VITE_BURL}/Carts/decreaseCount/${cartId}`
+    );
+    queryClient.invalidateQueries(["cartItems"]);
+  };
+  
   const fetchCartItem = async () => {
     const res = await axiosAuth.get("/Carts");
     return res.data.cartResponse;
@@ -44,7 +60,14 @@ export default function CartPage() {
           ) : cartItems?.length === 0 ? (
             <Typography>No items in cart.</Typography>
           ) : (
-            cartItems.map((item) => <CartCard key={item.id} item={item} />)
+            cartItems.map((item) => (
+              <CartCard
+                key={item.id}
+                item={item}
+                onIncrease={() => increaseCart(item.id)}
+                onDecrease={() => decreaseCart(item.id)}
+              />
+            ))
           )}
         </Grid>
 
