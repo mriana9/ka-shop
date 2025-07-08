@@ -110,7 +110,19 @@ export default function CartPage() {
           size={{ xs: 12, sm: 12, md: 4 }}
           sx={{ backgroundColor: "#F2F2F2" }}
         >
-          {!cartItems?.length === 0 ? (
+          {cartItems?.length === 0 ? (
+            <Typography
+              sx={{
+                fontWeight: "700",
+                textAlign: "center",
+                minHeight: "200px",
+                pt: 5,
+              }}
+              color={grey[500]}
+            >
+              Your Summary is empty
+            </Typography>
+          ) : (
             <CardContent>
               <Typography variant="h6" mb={2} fontWeight="bold">
                 Order Summary
@@ -147,17 +159,6 @@ export default function CartPage() {
                 Proceed to checkout
               </Button>
             </CardContent>
-          ) : (
-            <Typography
-              sx={{
-                fontWeight: "700",
-                textAlign: "center",
-                pt: 5,
-              }}
-              color={grey[500]}
-            >
-              Your Summary is empty
-            </Typography>
           )}
         </Grid>
       </Grid>

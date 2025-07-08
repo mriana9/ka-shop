@@ -36,11 +36,12 @@ export default function CartCard({ item, onIncrease, onDecrease }) {
 
       {/* Product Info */}
       <Box flex={1}>
-        <Typography variant="h6">
-          <Link to={`/product/${item?.id}`} fontWeight={600}>
+        <Link to={`/product/${item?.id}`} fontWeight={600}>
+          <Typography variant="h6" fontWeight="600" sx={{ color: "#312d5f" }}>
+            {" "}
             {item.name}
-          </Link>
-        </Typography>
+          </Typography>
+        </Link>
         <Typography variant="body2" color="text.secondary">
           {item?.description}
         </Typography>
