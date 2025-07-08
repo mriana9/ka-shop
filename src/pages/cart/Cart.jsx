@@ -14,7 +14,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import CartCardSkeleton from "../../components/loading/CartCardSkeleton";
 import { grey } from "@mui/material/colors";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ClearCartButton from "../../components/buttons/ClearCartButton";
 
 export default function CartPage() {
@@ -167,6 +167,8 @@ export default function CartPage() {
               <Button
                 variant="contained"
                 fullWidth
+                component={Link}
+                to="/checkout"
                 sx={{ backgroundColor: "#3ed7e9" }}
               >
                 Proceed to checkout

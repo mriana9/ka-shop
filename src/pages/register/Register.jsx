@@ -49,11 +49,13 @@ export default function Register() {
       );
     },
     onSuccess: () => {
+
       queryClient.invalidateQueries({ queryKey: ["userRegister"] });
       toast.success("Create User Successfully", {
         transition: Slide,
         theme: "light",
       });
+
       navigate("/");
     },
     onError: (error) => {
@@ -221,7 +223,7 @@ export default function Register() {
               rules={{
                 required: "User name is required",
                 minLength: {
-                  value: 4,
+                  value: 6,
                   message: "User name must be at least 6 characters long",
                 },
               }}

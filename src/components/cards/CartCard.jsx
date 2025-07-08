@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RemoveFromCartButton from "../buttons/RemoveFromCartButton";
 import cartImage from "../../assets/cartimg.png";

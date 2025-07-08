@@ -3,6 +3,7 @@ import MainLayout from "./layout/MainLayout";
 import {
   Cart,
   Checkout,
+  Confirmed,
   ForgotPassword,
   Home,
   Login,
@@ -50,6 +51,10 @@ const routes = createBrowserRouter([
       {
         path: "/checkout",
         element: <Checkout />,
+      },
+      {
+        path: "/confirmed",
+        element: <Confirmed />,
       },
       {
         path: "/products",

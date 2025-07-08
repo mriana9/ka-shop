@@ -7,3 +7,4 @@ export { default as Products } from "./products/Products";
 export { default as ProductDetails } from "./products/ProductDetails";
 export { default as Cart } from "./cart/Cart";
 export { default as Checkout } from "./checkout/Checkout";
+export { default as Confirmed } from "./confirmed/Confirmed";
