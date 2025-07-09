@@ -8,6 +8,7 @@ import {
   Typography,
   Box,
   Divider,
+  Button,
 } from "@mui/material";
 import {
   AccountCircle,
@@ -17,9 +18,11 @@ import {
 } from "@mui/icons-material";
 import MyProfile from "../../components/profile/MyProfile";
 import MyOrders from "../../components/profile/MyOrders";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosAuth from "../../api/axiosAuthInstance";
 import ChangePassword from "../../components/profile/ChangePassword";
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const menuItems = [
   { text: "My Profile", icon: <AccountCircle /> },
@@ -39,11 +42,43 @@ export default function Profile() {
     queryFn: fetchUserData,
     staleTime: 0,
   });
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userEmail");
+    queryClient.removeQueries({ queryKey: ["userLogin"] });
+
+    navigate("/");
+  };
+
   const contentMap = {
     "My Profile": <MyProfile userData={userData} />,
     "My Orders": <MyOrders />,
     "Change Password": <ChangePassword />,
-    "Log out": <Typography variant="h6">Logging out...</Typography>,
+    "Log out": (
+      <Box
+        height="40vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button
+          onClick={handleLogout}
+          variant="outlined"
+          sx={{
+            boxShadow: "none",
+            color: "#fff",
+            borderColor: "#4fc4ca",
+            backgroundColor: "#4fc4ca",
+          }}
+          startIcon={<LogoutIcon color="#fff" />}
+        >
+          Logout
+        </Button>
+      </Box>
+    ),
   };
   const [selectedTab, setSelectedTab] = useState("My Profile");
 
