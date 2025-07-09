@@ -19,6 +19,7 @@ import MyProfile from "../../components/profile/MyProfile";
 import MyOrders from "../../components/profile/MyOrders";
 import { useQuery } from "@tanstack/react-query";
 import axiosAuth from "../../api/axiosAuthInstance";
+import ChangePassword from "../../components/profile/ChangePassword";
 
 const menuItems = [
   { text: "My Profile", icon: <AccountCircle /> },
@@ -41,11 +42,7 @@ export default function Profile() {
   const contentMap = {
     "My Profile": <MyProfile userData={userData} />,
     "My Orders": <MyOrders />,
-    Addresses: (
-      <Typography variant="h6">Your saved addresses appear here.</Typography>
-    ),
-    Cards: <Typography variant="h6">Your payment methods go here.</Typography>,
-    Notifications: <Typography variant="h6">Notification settings.</Typography>,
+    "Change Password": <ChangePassword />,
     "Log out": <Typography variant="h6">Logging out...</Typography>,
   };
   const [selectedTab, setSelectedTab] = useState("My Profile");
