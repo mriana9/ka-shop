@@ -167,16 +167,6 @@ body {
   background-image: url("./assets/music.svg");
 }
 
-.MuiDrawer-paper {
-  background: linear-gradient(
-    to bottom,
-    #fff,
-    rgba(11, 232, 244, 0.5),
-    #fff
-  ) !important;
-  backdrop-filter: blur(20px) !important;
-}
-
 .close-btn {
   color: var(--primary-color);
   background-color: var(--secondary-color) !important;

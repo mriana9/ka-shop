@@ -194,8 +194,7 @@ export default function Navbar() {
                   <AccountCircleIcon sx={{ color: "#4fc4ca" }} />{" "}
                   {userData.email}
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
-                  {" "}
+                <MenuItem onClick={() => navigate("/profile")}>
                   <PersonOutlineIcon sx={{ color: "#4fc4ca" }} /> Profile
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose}>
@@ -271,7 +270,13 @@ export default function Navbar() {
         onClose={handleDrawerToggle}
         sx={{
           display: { xs: "block", md: "none" },
-          "& .MuiDrawer-paper": { width: "100%", padding: 5 },
+          "& .MuiDrawer-paper": {
+            width: "100%",
+            padding: 5,
+            background:
+              "linear-gradient(to bottom, #fff, rgba(11, 232, 244, 0.5), #fff)",
+            backdropFilter: "blur(20px)",
+          },
         }}
       >
         <Box display="flex" justifyContent="space-between">
@@ -326,7 +331,7 @@ export default function Navbar() {
             <>
               {/* Profile dropdown */}
               <IconButton
-                onClick={handleMenuOpen}
+                onClick={handleMenuOpen} // 🔁 Change to handleMenuOpen
                 sx={{
                   backgroundColor: "#fff",
                   borderRadius: 1,

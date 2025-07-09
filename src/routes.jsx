@@ -9,6 +9,7 @@ import {
   Login,
   ProductDetails,
   Products,
+  Profile,
   Register,
   SendCode,
 } from "./pages";
@@ -31,6 +32,10 @@ const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path:"/profile",
+        element: <Profile />
       },
       {
         path: "/forgot-password",
