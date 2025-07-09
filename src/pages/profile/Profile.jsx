@@ -16,6 +16,9 @@ import {
   LockOutlineSharp,
 } from "@mui/icons-material";
 import MyProfile from "../../components/profile/MyProfile";
+import MyOrders from "../../components/profile/MyOrders";
+import { useQuery } from "@tanstack/react-query";
+import axiosAuth from "../../api/axiosAuthInstance";
 
 const menuItems = [
   { text: "My Profile", icon: <AccountCircle /> },
@@ -25,11 +28,19 @@ const menuItems = [
 ];
 
 export default function Profile() {
+  const fetchUserData = async () => {
+    const res = await axiosAuth.get("/Account/userinfo");
+    return res.data;
+  };
+
+  const { data: userData } = useQuery({
+    queryKey: ["userData"],
+    queryFn: fetchUserData,
+    staleTime: 0,
+  });
   const contentMap = {
-    "My Profile": <MyProfile />,
-    "My Orders": (
-      <Typography variant="h6">This is your orders content.</Typography>
-    ),
+    "My Profile": <MyProfile userData={userData} />,
+    "My Orders": <MyOrders />,
     Addresses: (
       <Typography variant="h6">Your saved addresses appear here.</Typography>
     ),
@@ -40,15 +51,27 @@ export default function Profile() {
   const [selectedTab, setSelectedTab] = useState("My Profile");
 
   return (
-    <Box sx={{ display: "flex", my: 3, gap: 3 }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+        my: 3,
+      }}
+    >
       {/* Sidebar */}
       <Drawer
         variant="permanent"
         sx={{
-          width: 240,
+          width: {
+            xs: "100%",
+            md: "max-content",
+          },
+          height: "max-content",
           flexShrink: 0,
           "& .MuiDrawer-paper ": {
-            width: "max-content",
             position: "static",
             border: 0,
             mx: 3,
@@ -61,10 +84,7 @@ export default function Profile() {
       >
         <Box sx={{ mb: 2 }}>
           <Typography variant="subtitle1" fontWeight="bold">
-            Ahmed Mohamed
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Cairo, Egypt
+            {userData?.firstName || ""} {userData?.lastName || ""}
           </Typography>
         </Box>
         <Divider />

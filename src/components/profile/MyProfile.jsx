@@ -8,33 +8,23 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Typography,
 } from "@mui/material";
-import axiosAuth from "../../api/axiosAuthInstance";
-import { useQuery } from "@tanstack/react-query";
 import ManIcon from "@mui/icons-material/Man";
 import WomanIcon from "@mui/icons-material/Woman";
-export default function MyProfile() {
-  const fetchUserData = async () => {
-    const res = await axiosAuth.get("/Account/userinfo");
-    return res.data;
-  };
-
-  const { data: userData } = useQuery({
-    queryKey: ["userData"],
-    queryFn: fetchUserData,
-    staleTime: 0,
-  });
-
-  console.log("userData", userData);
-
+export default function MyProfile({ userData }) {
   return (
-    <Box mx={3}>
+    <Box>
+      <Typography variant="h6" my={1}>
+        My Profile
+      </Typography>
+
       <Grid container spacing={2}>
         <Grid item size={{ xs: 12, sm: 6 }}>
           <TextField
             label="First Name"
             fullWidth
-            sx={{ m: 1, cursor: "not-allowed" }}
+            sx={{my:1 , cursor: "not-allowed" }}
             disabled
             value={userData?.firstName || ""}
             slotProps={{
@@ -54,7 +44,7 @@ export default function MyProfile() {
             label="Last Name"
             value={userData?.lastName || ""}
             fullWidth
-            sx={{ m: 1, cursor: "not-allowed" }}
+            sx={{my:1 , cursor: "not-allowed" }}
             disabled
             slotProps={{
               input: {
@@ -73,7 +63,7 @@ export default function MyProfile() {
             label="User Name"
             value={userData?.userName || ""}
             fullWidth
-            sx={{ m: 1, cursor: "not-allowed" }}
+            sx={{my:1 , cursor: "not-allowed" }}
             disabled
             slotProps={{
               input: {
@@ -92,7 +82,7 @@ export default function MyProfile() {
             label="Gender"
             value={userData?.gender || ""}
             fullWidth
-            sx={{ m: 1, cursor: "not-allowed" }}
+            sx={{my:1 , cursor: "not-allowed" }}
             disabled
             slotProps={{
               input: {
@@ -111,7 +101,7 @@ export default function MyProfile() {
             label="Email"
             value={userData?.email || ""}
             fullWidth
-            sx={{ m: 1, cursor: "not-allowed" }}
+            sx={{my:1 , cursor: "not-allowed" }}
             disabled
             slotProps={{
               input: {
