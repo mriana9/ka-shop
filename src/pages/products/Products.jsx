@@ -1,60 +1,113 @@
 import {
   Box,
   Grid,
-  TextField,
-  Button,
   Typography,
   Container,
+  Pagination,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  IconButton,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import ProductCard from "../../components/cards/ProductCard";
 import axiosAuth from "../../api/axiosAuthInstance";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import ProductCardSkeleton from "../../components/loading/ProductCardSkeleton";
+import { useState } from "react";
+import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 
 export default function Products() {
-  //const [searchTerm, setSearchTerm] = useState("");
-
-  // Filter products by search term (case insensitive)
-  // const filteredProducts = productsData.filter((product) =>
-  //   product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
-  // const handleSearchChange = (e) => {
-  //   setSearchTerm(e.target.value);
-  // };
-
-  // const handleFilterClick = () => {
-  //   // Implement filter functionality here if you want
-  //   alert("Filter button clicked!");
-  // };
-
   const { id } = useParams();
-  //const queryClient = useQueryClient();
+  const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState("price");
+  const [sortOrder, setSortOrder] = useState("ASC");
+  const limit = 2;
 
-  const fetchProductByCategory = async (id) => {
-    const res = await axiosAuth.get(`/categories/${id}/products`);
+  const fetchProducts = async () => {
+    const endpoint = id
+      ? `/categories/${id}/products?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${sortOrder}`
+      : `/products?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${sortOrder}`;
+    const res = await axiosAuth.get(endpoint);
     return res.data;
   };
 
-  const {
-    data: products,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["productsByCategory", id],
-    queryFn: () => fetchProductByCategory(id),
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["productsByCategory", id, page, sortBy, sortOrder],
+    queryFn: fetchProducts,
+    keepPreviousData: true,
   });
+
+  const products = data?.data || [];
+  const totalPages = data?.totalPages || 1;
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+    setPage(1);
+  };
+
+  const toggleSortOrder = () => {
+    setSortOrder((prev) => (prev === "ASC" ? "DESC" : "ASC"));
+    setPage(1);
+  };
 
   return (
     <Container sx={{ py: 3 }} className="best-sellers">
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2, gap: 2 }}>
+        <FormControl
+          size="small"
+          sx={{
+            minWidth: 150,
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "#4fc4ca",
+              },
+            },
+          }}
+        >
+          <InputLabel sx={{ color: "#4fc4ca" }}>Sort By</InputLabel>
+          <Select value={sortBy} onChange={handleSortChange} label="Sort By">
+            <MenuItem value="price">Price</MenuItem>
+            <MenuItem value="name">Name</MenuItem>
+            <MenuItem value="createdAt">Newest</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl
+          size="small"
+          sx={{
+            minWidth: 120,
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "#4fc4ca",
+              },
+            },
+          }}
+        >
+          <InputLabel>Order</InputLabel>
+          <Select
+            value={sortOrder}
+            onChange={(e) => {
+              setSortOrder(e.target.value);
+              setPage(1);
+            }}
+            label="Order"
+          >
+            <MenuItem value="ASC">Ascending</MenuItem>
+            <MenuItem value="DESC">Descending</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
       {isLoading ? (
         <Grid container spacing={2}>
-          {[...Array(5)].map((_, index) => (
-            <Grid size={{ xs: 6, md: 3 }} key={index}>
+          {[...Array(2)].map((_, index) => (
+            <Grid item xs={6} md={3} key={index}>
               <ProductCardSkeleton />
             </Grid>
           ))}
@@ -62,13 +115,26 @@ export default function Products() {
       ) : isError ? (
         <Typography color="error">Error: {error.message}</Typography>
       ) : (
-        <Grid container spacing={2}>
-          {products.map((product) => (
-            <Grid size={{ xs: 6, md: 3 }} key={product.id}>
-              <ProductCard product={product} />
-            </Grid>
-          ))}
-        </Grid>
+        <>
+          <Grid container spacing={2}>
+            {products.map((product) => (
+              <Grid item xs={6} md={3} key={product.id}>
+                <ProductCard product={product} />
+              </Grid>
+            ))}
+          </Grid>
+
+          {totalPages > 1 && (
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+              <Pagination
+                count={totalPages}
+                page={page}
+                onChange={handlePageChange}
+                color="primary"
+              />
+            </Box>
+          )}
+        </>
       )}
     </Container>
   );
