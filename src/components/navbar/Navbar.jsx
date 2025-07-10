@@ -198,6 +198,7 @@ export default function Navbar() {
                 <MenuItem
                   onClick={() => {
                     navigate("/profile");
+                    handleMenuClose();
                   }}
                 >
                   <PersonOutlineIcon sx={{ color: "#4fc4ca" }} /> Profile
