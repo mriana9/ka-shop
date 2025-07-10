@@ -5,14 +5,14 @@ import { Typography } from "@mui/material";
 import OrderCardSkeleton from "../loading/OrderCardSkeleton";
 
 export default function MyOrders() {
-  const fetchUserData = async () => {
+  const fetchUserOrderData = async () => {
     const res = await axiosAuth.get("/Orders");
     return res.data;
   };
 
   const { data: userOrders, isLoading } = useQuery({
     queryKey: ["userOrders"],
-    queryFn: fetchUserData,
+    queryFn: fetchUserOrderData,
     staleTime: 0,
   });
 

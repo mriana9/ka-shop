@@ -1,5 +1,6 @@
 import { Box, Typography, Button, Divider, Stack } from "@mui/material";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import OrderDetailsButton from "../buttons/OrderDetailsButton";
 export default function OrderCard({ order }) {
   return (
     <Box
@@ -23,32 +24,36 @@ export default function OrderCard({ order }) {
             ${order.totalPrice.toFixed(2)}
           </Typography>
         </Box>
-        <Button
-          variant="outlined"
-          size="small"
-          sx={{
-            color:
-              order.orderStatus === "Approved"
-                ? "green"
-                : order.orderStatus === "Pending"
-                ? "#b38b00"
-                : "#555",
-            borderColor:
-              order.orderStatus === "Approved"
-                ? "lightgreen"
-                : order.orderStatus === "Pending"
-                ? "gold"
-                : "#aaa",
-            backgroundColor:
-              order.orderStatus === "Approved"
-                ? "rgba(144, 238, 144, 0.2)"
-                : order.orderStatus === "Pending"
-                ? "rgba(255, 255, 0, 0.2)"
-                : "transparent",
-          }}
-        >
-          {order.orderStatus}
-        </Button>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{
+              color:
+                order.orderStatus === "Approved"
+                  ? "green"
+                  : order.orderStatus === "Pending"
+                  ? "#b38b00"
+                  : "#555",
+              borderColor:
+                order.orderStatus === "Approved"
+                  ? "lightgreen"
+                  : order.orderStatus === "Pending"
+                  ? "gold"
+                  : "#aaa",
+              backgroundColor:
+                order.orderStatus === "Approved"
+                  ? "rgba(144, 238, 144, 0.2)"
+                  : order.orderStatus === "Pending"
+                  ? "rgba(255, 255, 0, 0.2)"
+                  : "transparent",
+            }}
+          >
+            {order.orderStatus}
+          </Button>
+
+          <OrderDetailsButton orderId={order.id} />
+        </Box>
       </Stack>
 
       <Divider sx={{ my: 2 }} />
