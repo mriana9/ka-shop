@@ -31,6 +31,13 @@ const menuItems = [
   { text: "Log out", icon: <Logout /> },
 ];
 
+const tabRoutes = {
+  "My Profile": "userinfo",
+  "My Orders": "orders",
+  "Change Password": "changePassword",
+  "Log out": "logout",
+};
+
 export default function Profile() {
   const fetchUserData = async () => {
     const res = await axiosAuth.get("/Account/userinfo");
@@ -126,7 +133,10 @@ export default function Profile() {
             <ListItemButton
               key={text}
               selected={selectedTab === text}
-              onClick={() => setSelectedTab(text)}
+              onClick={() => {
+                setSelectedTab(text);
+                navigate(`/profile/${tabRoutes[text]}`, { replace: true });
+              }}
               sx={{
                 borderRadius: 2,
                 my: 0.5,
