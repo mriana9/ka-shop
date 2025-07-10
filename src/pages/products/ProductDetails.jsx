@@ -16,7 +16,6 @@ import thumProduct2 from "../../assets/thum-prodect2.png";
 import thumProduct3 from "../../assets/thum-prodect3.png";
 import thumProduct4 from "../../assets/thum-prodect4.png";
 import { useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import BestSellers from "../../components/bestSellers/BestSellers";
 import ProductDetailsSkeleton from "../../components/loading/ProductDetailsSkeleton";
@@ -38,7 +37,7 @@ export default function ProductDetails() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const fetchProductById = async (id) => {
-    const res = await axios.get(`${import.meta.env.VITE_BURL}/products/${id}`);
+    const res = await axiosAuth.get(`/products/${id}`);
     return res.data;
   };
 

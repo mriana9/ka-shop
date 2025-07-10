@@ -1,7 +1,18 @@
-import { Box, Grid, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Container,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import ProductCard from "../../components/cards/ProductCard";
+import axiosAuth from "../../api/axiosAuthInstance";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import ProductCardSkeleton from "../../components/loading/ProductCardSkeleton";
 
 export default function Products() {
   //const [searchTerm, setSearchTerm] = useState("");
@@ -20,45 +31,45 @@ export default function Products() {
   //   alert("Filter button clicked!");
   // };
 
+  const { id } = useParams();
+  //const queryClient = useQueryClient();
+
+  const fetchProductByCategory = async (id) => {
+    const res = await axiosAuth.get(`/categories/${id}/products`);
+    return res.data;
+  };
+
+  const {
+    data: products,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["productsByCategory", id],
+    queryFn: () => fetchProductByCategory(id),
+  });
+
   return (
-    <Box sx={{ p: 2 }}>
-      {/* Search + Filter Bar */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          mb: 2,
-          gap: 1,
-          flexWrap: "wrap",
-        }}
-      >
-        <TextField
-          size="small"
-          placeholder="Search"
-          InputProps={{
-            endAdornment: <SearchIcon />,
-          }}
-          sx={{ minWidth: 200 }}
-        />
-        <Button variant="outlined" startIcon={<FilterListIcon />}>
-          Filters
-        </Button>
-      </Box>
-
-      {/* Products Grid */}
-      {/* <Grid container spacing={2}>
-        {filteredProducts.map((product) => (
-          <Grid key={product.id} item xs={12} sm={6} md={3}>
-            <ProductCard product={product} />
-          </Grid>
-        ))}
-
-        {filteredProducts.length === 0 && (
-          <Box sx={{ p: 2, width: "100%", textAlign: "center", color: "gray" }}>
-            No products found.
-          </Box>
-        )}
-      </Grid> */}
-    </Box>
+    <Container sx={{ py: 3 }} className="best-sellers">
+      {isLoading ? (
+        <Grid container spacing={2}>
+          {[...Array(5)].map((_, index) => (
+            <Grid size={{ xs: 6, md: 3 }} key={index}>
+              <ProductCardSkeleton />
+            </Grid>
+          ))}
+        </Grid>
+      ) : isError ? (
+        <Typography color="error">Error: {error.message}</Typography>
+      ) : (
+        <Grid container spacing={2}>
+          {products.map((product) => (
+            <Grid size={{ xs: 6, md: 3 }} key={product.id}>
+              <ProductCard product={product} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+    </Container>
   );
 }
