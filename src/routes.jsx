@@ -4,6 +4,7 @@ import {
   Cart,
   Checkout,
   Confirmed,
+  Favorites,
   ForgotPassword,
   Home,
   Login,
@@ -34,8 +35,8 @@ const routes = createBrowserRouter([
         element: <Register />,
       },
       {
-        path:"/profile",
-        element: <Profile />
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/forgot-password",
@@ -52,6 +53,10 @@ const routes = createBrowserRouter([
             <Cart />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/favorites",
+        element: <Favorites />,
       },
       {
         path: "/checkout",

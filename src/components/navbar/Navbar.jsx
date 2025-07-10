@@ -331,7 +331,7 @@ export default function Navbar() {
             <>
               {/* Profile dropdown */}
               <IconButton
-                onClick={handleMenuOpen} // 🔁 Change to handleMenuOpen
+                onClick={handleMenuOpen}
                 sx={{
                   backgroundColor: "#fff",
                   borderRadius: 1,
@@ -363,8 +363,7 @@ export default function Navbar() {
                   <AccountCircleIcon sx={{ color: "#4fc4ca" }} />{" "}
                   {userData.email}
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
-                  {" "}
+                <MenuItem onClick={() => navigate("/profile")}>
                   <PersonOutlineIcon sx={{ color: "#4fc4ca" }} /> Profile
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose}>

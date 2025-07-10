@@ -9,3 +9,4 @@ export { default as Cart } from "./cart/Cart";
 export { default as Checkout } from "./checkout/Checkout";
 export { default as Confirmed } from "./confirmed/Confirmed";
 export { default as Profile } from "./profile/Profile";
+export { default as Favorites } from "./favorites/Favorites";
