@@ -9,7 +9,7 @@ export default function AddToCartButton({ productId }) {
 
   const addToCardMutation = useMutation({
     mutationFn: (productId) => {
-      return axiosAuth.post(`${import.meta.env.VITE_BURL}/Carts/${productId}`);
+      return axiosAuth.post(`/Carts/${productId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cartItems"] });

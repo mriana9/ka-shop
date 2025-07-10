@@ -9,7 +9,7 @@ export default function RemoveFromCartButton({ cartId }) {
 
   const removeFromCartMutation = useMutation({
     mutationFn: () =>
-      axiosAuth.delete(`${import.meta.env.VITE_BURL}/Carts/${cartId}`),
+      axiosAuth.delete(`/Carts/${cartId}`),
 
     onSuccess: () => {
       toast.success("Removed from Cart Successfully");

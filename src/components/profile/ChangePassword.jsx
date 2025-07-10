@@ -28,10 +28,7 @@ export default function ChangePassword() {
 
   const changePassword = useMutation({
     mutationFn: (data) => {
-      return axiosAuth.patch(
-        `${import.meta.env.VITE_BURL}/Account/ChangePassword`,
-        data
-      );
+      return axiosAuth.patch(`/Account/ChangePassword`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sendCode"] });

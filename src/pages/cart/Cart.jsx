@@ -23,7 +23,7 @@ export default function CartPage() {
 
   const increaseCart = async (cartId) => {
     await axiosAuth.patch(
-      `${import.meta.env.VITE_BURL}/Carts/increaseCount/${cartId}`
+      `/Carts/increaseCount/${cartId}`
     );
     queryClient.invalidateQueries(["cartItems"]);
     queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
@@ -31,7 +31,7 @@ export default function CartPage() {
 
   const decreaseCart = async (cartId) => {
     await axiosAuth.patch(
-      `${import.meta.env.VITE_BURL}/Carts/decreaseCount/${cartId}`
+      `/Carts/decreaseCount/${cartId}`
     );
     queryClient.invalidateQueries(["cartItems"]);
     queryClient.invalidateQueries({ queryKey: ["totalPrice"] });

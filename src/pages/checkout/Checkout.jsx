@@ -27,7 +27,7 @@ export default function Checkout() {
 
   const checkout = useMutation({
     mutationFn: (data) =>
-      axiosAuth.post(`${import.meta.env.VITE_BURL}/CheckOuts/Pay`, data),
+      axiosAuth.post(`/CheckOuts/Pay`, data),
 
     onSuccess: () => {
       toast.success("Payment Successfully", {
@@ -210,7 +210,7 @@ export default function Checkout() {
                 </Typography>
               </Box>
             ) : (
-              cartItems.map((item) => <SummaryCard item={item} />)
+              cartItems.map((item, index) => <SummaryCard key={index} item={item} />)
             )}
             <Box display="flex" justifyContent="space-between" mt={2}>
               <Typography>Subtotal</Typography>

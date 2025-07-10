@@ -1,14 +1,14 @@
 import { Container } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CategoryCard from "../cards/CategoryCard";
 import { CategoryCardSkeleton } from "../loading/CategoryCardSkeleton";
+import axiosAuth from "../../api/axiosAuthInstance";
 
 export default function Categories() {
   const fetchCategories = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_BURL}/categories`);
+    const { data } = await axiosAuth.get(`/categories`);
     return data;
   };
 

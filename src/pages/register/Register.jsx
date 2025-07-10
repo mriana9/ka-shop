@@ -44,7 +44,7 @@ export default function Register() {
   const registerUser = useMutation({
     mutationFn: (data) => {
       return axiosAuth.post(
-        `${import.meta.env.VITE_BURL}/Account/register`,
+        `/Account/register`,
         data
       );
     },
@@ -56,7 +56,7 @@ export default function Register() {
         theme: "light",
       });
 
-      navigate("/");
+      navigate("/login");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || "Register failed");

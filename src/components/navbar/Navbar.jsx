@@ -10,7 +10,6 @@ import {
   Drawer,
   IconButton,
   List,
-  ListItem,
   Menu,
   MenuItem,
   ListItemText,
@@ -30,7 +29,6 @@ import axiosAuth from "../../api/axiosAuthInstance";
 
 const pages = [
   { name: "Home", path: "/" },
-  { name: "Categories", path: "/categories" },
   { name: "Products", path: "/products" },
   { name: "About Us", path: "/about-us" },
   { name: "Contact Us", path: "/contact-us" },
@@ -82,7 +80,7 @@ export default function Navbar() {
   };
 
   const fetchCartItem = async () => {
-    const res = await axiosAuth.get(`${import.meta.env.VITE_BURL}/Carts`);
+    const res = await axiosAuth.get(`/Carts`);
     return res.data.cartResponse;
   };
 

@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import CategoryImage from "../../assets/category.png";
+import { Link } from "react-router-dom";
 
 export default function CategoryCard({ category }) {
   return (
@@ -43,7 +44,12 @@ export default function CategoryCard({ category }) {
           fontWeight: 500,
         }}
       >
-        <Typography variant="body2">{category.name}</Typography>
+        <Link
+          to={`/categories/${category.id}/products`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Typography variant="body2">{category.name}</Typography>
+        </Link>
       </Box>
     </>
   );

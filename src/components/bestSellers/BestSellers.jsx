@@ -1,15 +1,15 @@
 import { Box, Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import ProductCard from "../cards/ProductCard";
 import ProductCardSkeleton from "../loading/ProductCardSkeleton";
+import axiosAuth from "../../api/axiosAuthInstance";
 
 export default function BestSellers({ title }) {
   const fetchProducts = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_BURL}/products`);
+    const { data } = await axiosAuth.get(`/products`);
     return data.data;
   };
 

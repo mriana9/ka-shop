@@ -31,7 +31,7 @@ export default function ForgotPassword() {
   const userSendEmail = useMutation({
     mutationFn: (data) => {
       return axiosAuth.post(
-        `${import.meta.env.VITE_BURL}/Account/ForgotPassword`,
+        `/Account/ForgotPassword`,
         data
       );
     },

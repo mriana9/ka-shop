@@ -68,19 +68,16 @@ export default function ProductDetails() {
 
   const cartItem = cartItems?.find((item) => item.id === product.id);
   const cartCount = cartItem?.count || 1;
-
   const increaseCart = async (cartId) => {
-    await axiosAuth.patch(
-      `${import.meta.env.VITE_BURL}/Carts/increaseCount/${cartId}`
-    );
+    await axiosAuth.patch(`/Carts/increaseCount/${cartId}`);
     queryClient.invalidateQueries(["cartItems"]);
+    queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
   };
 
   const decreaseCart = async (cartId) => {
-    await axiosAuth.patch(
-      `${import.meta.env.VITE_BURL}/Carts/decreaseCount/${cartId}`
-    );
+    await axiosAuth.patch(`/Carts/decreaseCount/${cartId}`);
     queryClient.invalidateQueries(["cartItems"]);
+    queryClient.invalidateQueries({ queryKey: ["totalPrice"] });
   };
 
   return (

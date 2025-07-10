@@ -1,9 +1,7 @@
 import {
   Box,
-  Button,
   Grid,
   Typography,
-  TextField,
   InputAdornment,
   IconButton,
 } from "@mui/material";
@@ -16,13 +14,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { grey } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
-import axiosAuth from "../../api/axiosAuthInstance";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import { toast, Slide } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CustomButton from "../../shared/CustomButton";
 import CustomInput from "../../shared/CustomInput";
+import axios from "axios";
 
 export default function SendCode() {
   const {
@@ -41,7 +39,7 @@ export default function SendCode() {
 
   const userSendCode = useMutation({
     mutationFn: (data) => {
-      return axiosAuth.patch(
+      return axios.patch(
         `${import.meta.env.VITE_BURL}/Account/SendCode`,
         data
       );

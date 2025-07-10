@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { toast, Slide } from "react-toastify";
+import axiosAuth from "../../api/axiosAuthInstance";
 
 export default function ClearCartButton() {
   const queryClient = useQueryClient();
@@ -10,7 +10,7 @@ export default function ClearCartButton() {
     mutationFn: async () => {
       const userToken = localStorage.getItem("userToken");
 
-      return await axios.delete(
+      return await axiosAuth.delete(
         `${import.meta.env.VITE_BURL}/Carts/clearCart`,
         {
           headers: {

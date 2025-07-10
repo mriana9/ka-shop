@@ -41,7 +41,7 @@ export default function Login() {
 
   const loginUser = useMutation({
     mutationFn: (data) => {
-      return axiosAuth.post(`${import.meta.env.VITE_BURL}/Account/Login`, data);
+      return axiosAuth.post(`/Account/Login`, data);
     },
     onSuccess: (res, variables) => {
       const userData = {
