@@ -15,6 +15,7 @@ import {
   MenuItem,
   ListItemText,
   Badge,
+  ListItemButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -194,7 +195,11 @@ export default function Navbar() {
                   <AccountCircleIcon sx={{ color: "#4fc4ca" }} />{" "}
                   {userData.email}
                 </MenuItem>
-                <MenuItem onClick={() => navigate("/profile")}>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/profile");
+                  }}
+                >
                   <PersonOutlineIcon sx={{ color: "#4fc4ca" }} /> Profile
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose}>
@@ -294,12 +299,10 @@ export default function Navbar() {
         </Box>
 
         <List>
-          {pages.map((page) => (
-            <ListItem button key={page}>
-              <Link to={page.path}>
-                <ListItemText primary={page.name} />
-              </Link>
-            </ListItem>
+          {pages.map((page, index) => (
+            <ListItemButton key={index} component={Link} to={page.path}>
+              <ListItemText primary={page.name} />
+            </ListItemButton>
           ))}
 
           {!isLoggedIn ? (
@@ -363,7 +366,13 @@ export default function Navbar() {
                   <AccountCircleIcon sx={{ color: "#4fc4ca" }} />{" "}
                   {userData.email}
                 </MenuItem>
-                <MenuItem onClick={() => navigate("/profile")}>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/profile");
+                    handleMenuClose();
+                    handleDrawerToggle();
+                  }}
+                >
                   <PersonOutlineIcon sx={{ color: "#4fc4ca" }} /> Profile
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose}>
@@ -379,6 +388,7 @@ export default function Navbar() {
               <IconButton
                 component={Link}
                 to="/favorites"
+                onClick={handleDrawerToggle}
                 sx={{
                   backgroundColor: "#fff",
                   borderRadius: 1,
@@ -407,6 +417,10 @@ export default function Navbar() {
                 <IconButton
                   component={Link}
                   to="/cart"
+                  onClick={() => {
+                    navigate("/cart");
+                    handleDrawerToggle();
+                  }}
                   sx={{
                     backgroundColor: "#fff",
                     borderRadius: 1,
