@@ -29,7 +29,7 @@ export default function Products() {
 
   const fetchProducts = async () => {
     const endpoint = id
-      ? `/categories/${id}/products?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${sortOrder}&query=${search}`
+      ? `/categories/${id}/products`
       : `/products?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${sortOrder}&query=${search}`;
     const res = await axiosAuth.get(endpoint);
     return res.data;
@@ -41,7 +41,7 @@ export default function Products() {
     keepPreviousData: true,
   });
 
-  const products = data?.data || [];
+  const products = id ? data || [] : data?.data || [];
   const totalPages = data?.totalPages || 1;
 
   const handlePageChange = (event, value) => {
