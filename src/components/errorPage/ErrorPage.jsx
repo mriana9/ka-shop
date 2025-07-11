@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function ErrorPage() {
   return (
     <Box textAlign="center" mt={5}>
-      <Box sx={{  mx: "auto" }}>
+      <Box sx={{ maxWidth: 400, mx: "auto" }}>
         <Lottie animationData={errorAnimation} loop autoplay />
       </Box>
       <Typography variant="h6" mt={1} mb={3}>
