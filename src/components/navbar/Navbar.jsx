@@ -132,7 +132,15 @@ export default function Navbar() {
 
           {/* Desktop Buttons */}
           {!isLoggedIn ? (
-            <Box sx={{ display: "flex", gap: "10px" }}>
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "flex",
+                },
+                gap: "10px",
+              }}
+            >
               <Button
                 variant="outlined"
                 className="btn light-btn"
