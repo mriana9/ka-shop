@@ -58,13 +58,39 @@ export default function Products() {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
+          justifyContent: {
+            xs: "flex-start",
+            md: "space-between",
+          },
         }}
       >
-        <Typography variant="h5">Products</Typography>
+        <Typography
+          variant="h5"
+          sx={{
+            my: {
+              xs: 3,
+              md: 0,
+            },
+          }}
+        >
+          Products
+        </Typography>
         <Box
-          sx={{ display: "flex", justifyContent: "flex-end", mb: 2, gap: 2 }}
+          sx={{
+            display: "flex",
+            flexDirection: {
+              xs: "column",
+              md: "row",
+            },
+            justifyContent: "flex-end",
+            mb: 2,
+            gap: 2,
+          }}
         >
           {/* Search Field */}
           <TextField
