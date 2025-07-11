@@ -16,6 +16,7 @@ import {
 } from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ErrorPage from "./components/errorPage/ErrorPage";
+import ComingSoon from "./components/comingsoon/ComingSoon";
 
 const routes = createBrowserRouter([
   {
@@ -34,6 +35,14 @@ const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/about-us",
+        element: <ComingSoon />,
+      },
+      {
+        path: "/contact-us",
+        element: <ComingSoon />,
       },
       {
         path: "/profile/:subpage?",

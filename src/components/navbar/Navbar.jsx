@@ -23,7 +23,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axiosAuth from "../../api/axiosAuthInstance";
 
@@ -201,10 +200,6 @@ export default function Navbar() {
                 >
                   <PersonOutlineIcon sx={{ color: "#4fc4ca" }} /> Profile
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
-                  {" "}
-                  <SettingsIcon sx={{ color: "#4fc4ca" }} /> Settings
-                </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   {" "}
                   <LogoutIcon sx={{ color: "#4fc4ca" }} /> Logout
@@ -373,10 +368,6 @@ export default function Navbar() {
                   }}
                 >
                   <PersonOutlineIcon sx={{ color: "#4fc4ca" }} /> Profile
-                </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
-                  {" "}
-                  <SettingsIcon sx={{ color: "#4fc4ca" }} /> Settings
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   {" "}

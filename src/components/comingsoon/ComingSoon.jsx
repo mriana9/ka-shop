@@ -1,22 +1,20 @@
 import { Box, Typography, Button } from "@mui/material";
 import Lottie from "lottie-react";
-import errorAnimation from "../../assets/404.json";
+import comingSoonAnimation from "../../assets/coming-soon.json";
 import { Link } from "react-router-dom";
 
-export default function ErrorPage() {
+export default function ComingSoon() {
   return (
-    <Box textAlign="center" mt={5}>
-      <Box sx={{  mx: "auto" }}>
-        <Lottie animationData={errorAnimation} loop autoplay />
+    <Box textAlign="center" mt={5} minHeight="70vh">
+      <Box sx={{ maxWidth: 400, mx: "auto" }}>
+        <Lottie animationData={comingSoonAnimation} loop autoplay />
       </Box>
-      <Typography variant="h6" mt={1} mb={3}>
-        Oops! Page not found
-      </Typography>
       <Button
         component={Link}
         color="inherit"
         className="nav-link"
         sx={{
+          mt: 5,
           fontWeight: 500,
           minWidth: "max-content",
           textTransform: "capitalize",
