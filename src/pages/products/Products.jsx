@@ -141,7 +141,7 @@ export default function Products() {
       {isLoading ? (
         <Grid container spacing={2}>
           {[...Array(2)].map((_, index) => (
-            <Grid item xs={6} md={3} key={index}>
+            <Grid item size={{ xs: 6, md: 3 }} key={index}>
               <ProductCardSkeleton />
             </Grid>
           ))}
@@ -152,7 +152,7 @@ export default function Products() {
         <>
           <Grid container spacing={2}>
             {products.map((product) => (
-              <Grid item xs={6} md={3} key={product.id}>
+              <Grid item size={{ xs: 6, md: 3 }} key={product.id}>
                 <ProductCard product={product} />
               </Grid>
             ))}

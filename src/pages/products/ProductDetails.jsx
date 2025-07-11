@@ -22,6 +22,8 @@ import ProductDetailsSkeleton from "../../components/loading/ProductDetailsSkele
 import QuantityButton from "../../components/buttons/QuantityButton";
 import axiosAuth from "../../api/axiosAuthInstance";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ReviewCard from "../../components/cards/ReviewCard";
+import AddReview from "../../components/review/AddReview";
 
 export default function ProductDetails() {
   const thumbnails = [
@@ -67,6 +69,7 @@ export default function ProductDetails() {
 
   const cartItem = cartItems?.find((item) => item.id === product.id);
   const cartCount = cartItem?.count || 1;
+
   const increaseCart = async (cartId) => {
     await axiosAuth.patch(`/Carts/increaseCount/${cartId}`);
     queryClient.invalidateQueries(["cartItems"]);
@@ -83,7 +86,8 @@ export default function ProductDetails() {
     <>
       <Box p={4}>
         <Grid container spacing={4}>
-          <Grid item size={{ xs: 12, md: 6 }}>
+          {/* Left: Images */}
+          <Grid item xs={12} md={6}>
             <Box
               sx={{
                 display: "flex",
@@ -142,7 +146,8 @@ export default function ProductDetails() {
             </Box>
           </Grid>
 
-          <Grid item size={{ xs: 12, md: 6 }} pl={2}>
+          {/* Right: Product Info */}
+          <Grid item xs={12} md={6} pl={2}>
             <Box>
               <Box
                 display="flex"
@@ -163,7 +168,7 @@ export default function ProductDetails() {
                 Rate
               </Typography>
               <Box display="flex" alignItems="center" gap={1}>
-                <Rating value={3.4} precision={0.1} readOnly />
+                <Rating value={product.rate} precision={0.1} readOnly />
                 <Typography variant="body2">({product.rate})</Typography>
               </Box>
 
@@ -194,14 +199,12 @@ export default function ProductDetails() {
               <Box
                 sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}
               >
-                {/* Quantity Control Box */}
                 <QuantityButton
                   count={cartCount}
                   onIncrease={() => increaseCart(product.id)}
                   onDecrease={() => decreaseCart(product.id)}
                 />
 
-                {/* Buy Button */}
                 <Button
                   variant="contained"
                   startIcon={<ShoppingCartIcon />}
@@ -217,8 +220,28 @@ export default function ProductDetails() {
             </Box>
           </Grid>
         </Grid>
+
+        {/* Add Review Section */}
+        <AddReview />
+
+        {/* Reviews Section */}
+        <Box mt={4}>
+          <Typography variant="h6" mb={1}>
+            Customer Reviews
+          </Typography>
+
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <ReviewCardSkeleton key={i} />
+              ))
+            : product.reviews.map((review) => (
+                <ReviewCard key={review.id} review={review} />
+              ))}
+        </Box>
+
+        {/* Best Sellers */}
+        <BestSellers title={"Recommended for You"} />
       </Box>
-      <BestSellers title={"Recommended for You"} />
     </>
   );
 }

@@ -16,7 +16,7 @@ export default function ProductCard({ product }) {
     <Card
       sx={{
         position: "relative",
-        mt: 2,
+        my: 2,
         borderRadius: 2,
         overflow: "hidden",
         boxShadow: 0,
