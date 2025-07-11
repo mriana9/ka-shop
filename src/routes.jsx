@@ -15,12 +15,13 @@ import {
   SendCode,
 } from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ErrorPage from "./components/errorPage/ErrorPage";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
