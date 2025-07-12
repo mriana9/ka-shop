@@ -42,35 +42,35 @@ export default function MyProfile({ userData }) {
       </Typography>
 
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item size={{ xs: 12, sm: 6 }}>
           {renderField(
             "First Name",
             userData?.firstName || "",
             <PersonOutlineIcon />
           )}
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item size={{ xs: 12, sm: 6 }}>
           {renderField(
             "Last Name",
             userData?.lastName || "",
             <PersonOutlineIcon />
           )}
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item size={{ xs: 12, sm: 6 }}>
           {renderField(
             "User Name",
             userData?.userName || "",
             <PersonOutlineIcon />
           )}
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item size={{ xs: 12, sm: 6 }}>
           {renderField(
             "Gender",
             userData?.gender || "",
             userData?.gender === "Male" ? <ManIcon /> : <WomanIcon />
           )}
         </Grid>
-        <Grid item xs={12} md={12}>
+        <Grid item size={{ xs: 12, sm: 6 }}>
           {renderField("Email", userData?.email || "", <MailOutlineIcon />)}
         </Grid>
       </Grid>

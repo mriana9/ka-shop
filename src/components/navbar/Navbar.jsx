@@ -302,7 +302,13 @@ export default function Navbar() {
 
         <List>
           {pages.map((page, index) => (
-            <ListItemButton key={index} component={Link} to={page.path}>
+            <ListItemButton
+              key={index}
+              onClick={() => {
+                navigate(page.path);
+                handleDrawerToggle();
+              }}
+            >
               <ListItemText primary={page.name} />
             </ListItemButton>
           ))}
