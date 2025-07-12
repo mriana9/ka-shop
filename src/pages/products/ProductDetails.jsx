@@ -210,7 +210,12 @@ export default function ProductDetails() {
                   startIcon={<ShoppingCartIcon />}
                   sx={{
                     flexGrow: 1,
-                    height: "40px",
+                    width: {
+                      md: "200px",
+                      xs:"180px"
+                    },
+                    boxShadow: 0,
+                    mt: 1,
                     backgroundColor: "#4fc4ca",
                   }}
                 >
