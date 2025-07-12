@@ -36,7 +36,7 @@ export default function MyProfile({ userData }) {
   };
 
   return (
-    <Box>
+    <Box minHeight="80vh">
       <Typography variant="h6" my={1}>
         My Profile
       </Typography>

@@ -66,10 +66,10 @@ export default function Profile() {
     "Change Password": <ChangePassword />,
     "Log out": (
       <Box
-        height="40vh"
         display="flex"
         justifyContent="center"
         alignItems="center"
+        minHeight="60vh"
       >
         <Button
           onClick={handleLogout}
